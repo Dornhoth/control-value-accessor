@@ -61,7 +61,7 @@ export class MultiselectComponent implements ControlValueAccessor {
   }
 
   writeValue(items: Array<ListItem>): void {
-    this.selectedItems = items;
+    this.selectedItems = items || [];
     this.onChange(this.selectedItems);
   }
 
@@ -78,13 +78,15 @@ export class MultiselectComponent implements ControlValueAccessor {
   }
 
   onItemClick(item: ListItem) {
-    const found = this.isItemAlreadySelected(item);
-    if (!found) {
-      this.select(item);
-    } else {
-      this.unselect(item);
+    if (!this.disabled) {
+      const found = this.isItemAlreadySelected(item);
+      if (!found) {
+        this.select(item);
+      } else {
+        this.unselect(item);
+      }
+      this.onChange(this.items);
     }
-    this.onChange(this.items);
   }
 
   trackByFn(index, item) {
@@ -102,7 +104,9 @@ export class MultiselectComponent implements ControlValueAccessor {
   }
 
   toggleDropdown() {
-    this.open = !this.open;
+    if (!this.disabled) {
+      this.open = !this.open;
+    }
   }
 
   closeDropdown() {

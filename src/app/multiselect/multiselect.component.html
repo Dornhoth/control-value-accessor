@@ -1,5 +1,5 @@
 <div #multiselect class="multiselect">
-  <div class="input" (click)="toggleDropdown()">
+  <div class="input" (click)="toggleDropdown()" [class.disabled]="disabled">
     <span (click)="onItemClick(item)" class="selected-item" *ngFor="let item of selectedItems;trackBy: trackByFn">
       {{item.text}}
     </span>
@@ -7,7 +7,8 @@
   <div class="dropdown-list" [hidden]="!open">
     <ul>
       <li *ngFor="let item of items" (click)="onItemClick(item)"
-        [class.selected]="isItemAlreadySelected(item)">
+        [class.selected]="isItemAlreadySelected(item)"
+        [class.disabled]="disabled">
         {{item.text}}
       </li>
     </ul>

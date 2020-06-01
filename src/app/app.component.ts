@@ -7,8 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   name = '';
-  pets = [];
-  hasPets = false;
+  pets = [{ id: '1', text: 'Cat' }, { id: '2', text: 'Dog' }];
 
   possiblePets = [{ id: '1', text: 'Cat' }, { id: '2', text: 'Dog' },
   { id: '3', text: 'Parrot' }, { id: '4', text: 'Rabbit' },

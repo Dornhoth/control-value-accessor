@@ -1,6 +1,7 @@
 $color-border: #adadad;
 $color-selected: #d2d2d2;
 $color-selected-background: #fcfcfc;
+$color-disabled: rgba(0, 0, 0, 0.12);
 
 $spacing-extra-small: 4px;
 $spacing-small: 8px;
@@ -19,9 +20,16 @@ $border-radius: 3px;
   .input {
     border: 1px solid $color-border;
     padding: $spacing-extra-small;
-    cursor: pointer;
     border-radius: $border-radius;
     min-height: 30px;
+
+    :not(.disabled) {
+      cursor: pointer;
+    }
+
+    &.disabled {
+      background-color: $color-disabled;
+    }
 
     .selected-item {
       padding: 0 $spacing-extra-small;
@@ -53,6 +61,7 @@ $border-radius: 3px;
   li {
     padding: $spacing-small;
     margin: $spacing-small;
+    cursor: pointer;
 
     &.selected {
       color: $color-selected;
