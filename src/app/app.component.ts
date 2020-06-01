@@ -10,36 +10,8 @@ export class AppComponent {
   pets = [];
   hasPets = false;
 
-  possiblePets = [{
-    id: '1',
-    text: 'Cat'
-  },
-  {
-    id: '2',
-    text: 'Dog'
-  },
-  {
-    id: '3',
-    text: 'Parrot'
-  },
-  {
-    id: '4',
-    text: 'Rabbit'
-  },
-  {
-    id: '5',
-    text: 'Turtle'
-  },
-  {
-    id: '6',
-    text: 'Hamster'
-  },
-  {
-    id: '7',
-    text: 'Duck'
-  },
-  {
-    id: '8',
-    text: 'Goose'
-  }];
+  possiblePets = [{ id: '1', text: 'Cat' }, { id: '2', text: 'Dog' },
+  { id: '3', text: 'Parrot' }, { id: '4', text: 'Rabbit' },
+  { id: '5', text: 'Turtle' }, { id: '6', text: 'Hamster' },
+  { id: '7', text: 'Duck' }, { id: '8', text: 'Goose' }];
 }

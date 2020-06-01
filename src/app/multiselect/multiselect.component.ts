@@ -7,7 +7,9 @@ import {
   HostListener,
   ViewChild,
   ElementRef,
+  forwardRef,
 } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export class ListItem {
   id: string;
@@ -18,9 +20,16 @@ export class ListItem {
   selector: 'app-multiselect',
   templateUrl: './multiselect.component.html',
   styleUrls: ['./multiselect.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => MultiselectComponent),
+      multi: true
+    }
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MultiselectComponent {
+export class MultiselectComponent implements ControlValueAccessor {
   @ViewChild('multiselect', { static: true }) multiselect: ElementRef<any>;
 
   @Input() items: Array<ListItem> = [];
@@ -31,13 +40,41 @@ export class MultiselectComponent {
 
 
   open = false;
+  disabled = false;
+
+  private onChange = (_: Array<ListItem>) => { };
+  private onTouch = () => { };
 
   @HostListener('document:click', ['$event.target'])
   public onClick(targetElement) {
     const clickedInside = this.multiselect.nativeElement.contains(targetElement);
     if (!clickedInside) {
       this.closeDropdown();
+      this.onTouch();
     }
+  }
+
+  @HostListener('blur')
+  public onTouched() {
+    this.closeDropdown();
+    this.onTouch();
+  }
+
+  writeValue(items: Array<ListItem>): void {
+    this.selectedItems = items;
+    this.onChange(this.selectedItems);
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouch = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    this.disabled = isDisabled;
   }
 
   onItemClick(item: ListItem) {
@@ -47,6 +84,7 @@ export class MultiselectComponent {
     } else {
       this.unselect(item);
     }
+    this.onChange(this.items);
   }
 
   trackByFn(index, item) {
