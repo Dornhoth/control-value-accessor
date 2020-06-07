@@ -85,7 +85,7 @@ export class MultiselectComponent implements ControlValueAccessor {
       } else {
         this.unselect(item);
       }
-      this.onChange(this.items);
+      this.onChange(this.selectedItems);
     }
   }
 
